@@ -2,6 +2,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="crypto.js"></script>
+
 </head> 
 <body>
     <h1 align="center">Skeleton GUI</h1>
@@ -11,16 +13,17 @@
             Desired Level of Security <span class="caret"></span>
           </button>
           <ul class="dropdown-menu">
-            <li><a href="#">IND</a></li>
-            <li><a href="#">IND-CPA</a></li>
-            <li><a href="#">IND-CCA</a></li>
+            <li><a href="#" data-value="IND">IND</a></li>
+            <li><a href="#" data-value="IND-CPA">IND-CPA</a></li>
+            <li><a href="#" data-value="IND-CCA">IND-CCA</a></li>
+            <li><a href="#" data-value="all">All Levels</a></li>
           </ul>
         </div>
         
         <div class="row" align="center">
             <div id="alice" class="col-sm-12 col-md-6">
                 <h2> Alice </h2>
-                <div class="panel panel-info">
+                <div class="panel panel-info IND-CPA">
                   <div class="panel-heading">
                     <h3 class="panel-title">Encrypt a Message</h3>
                   </div>
@@ -33,7 +36,7 @@
                           </span>
                         </div><!-- /input-group -->
                   </div>
-                </div>
+                </div> <!-- end top panel -->
                 
                 <div class="panel panel-info">...</div>
             </div> <!-- End Alice-->
