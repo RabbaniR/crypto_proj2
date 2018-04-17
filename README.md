@@ -1,1 +1,1 @@
-# crypto_proj2
+# Project 2 for Applied Cryptography
