@@ -1,0 +1,102 @@
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script data-main="scripts/crypto_main.js" src="scripts/require.js"></script>
+
+</head>
+<body>
+    <h1 align="center">Skeleton GUI</h1>
+    <div class="container" align="right">
+        <div class="btn-group col-sm-12" >
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Signature Algorithm <span class="caret"></span>
+          </button>
+          <ul id="alg-selection" class="dropdown-menu">
+            <li><a href="#" data-value="RSA-PSS">RSA-PSS</a></li>
+            <li><a href="#" data-value="RSASSA-PKCS1-v1_5">RSASSA-PKCS1</a></li>
+          </ul>
+
+        </div>
+
+        <div class="btn-group col-sm-12" >
+        </br>
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Hashing Algorithm <span class="caret"></span>
+          </button>
+          <ul id="hash-selection" class="dropdown-menu">
+            <li><a href="#" data-value="SHA-1">SHA-1</a></li>
+            <li><a href="#" data-value="SHA-256">SHA-256</a></li>
+            <li><a href="#" data-value="SHA-384">SHA-384</a></li>
+            <li><a href="#" data-value="SHA-512">SHA-512</a></li>
+          </ul>
+
+
+        </div>
+
+        <div class="btn-group col-sm-12">
+        </br>
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Modulus Length <span class="caret"></span>
+          </button>
+          <ul id="modulus-selection" class="dropdown-menu">
+            <li><a href="#" data-value=1024>1024</a></li>
+            <li><a href="#" data-value=2048>2048</a></li>
+            <li><a href="#" data-value=4096>4096</a></li>
+          </ul>
+        </div>
+
+        <div class="btn-group col-sm-12">
+        </br>
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Salt Length <span class="caret"></span>
+          </button>
+          <ul id="salt-selection" class="dropdown-menu">
+            <li><a href="#" data-value=64>64</a></li>
+            <li><a href="#" data-value=128>128</a></li>
+            <li><a href="#" data-value=256>256</a></li>
+          </ul>
+        </div>
+
+        <div class="row" align="center">
+            <div id="alice" class="col-sm-12 col-md-6">
+                <h2> Alice </h2>
+                <div class="panel panel-info IND-CPA">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Sent Messages</h3>
+                  </div>
+                  <div id="alice-panel" class="panel-body">
+                    Message <br>
+                        <div class="input-group">
+                          <input id="alice-input" type="text"  class="form-control" placeholder="Enter Message...">
+                          <span id="alice-input-button"  class="input-group-btn">
+                            <button id="sign-button" class="btn btn-default" type="button">Hash and Sign</button>
+                          </span>
+                        </div><!-- /input-group -->
+                  </div>
+                </div> <!-- end top panel -->
+
+                <div class="panel panel-info">...</div>
+            </div> <!-- End Alice-->
+
+            <div id="bob" class="col-sm-12 col-md-6">
+                <h2> Bob </h2>
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Received Messages</h3>
+                  </div>
+                  <div id="bob-panel" class="panel-body">
+                    Received Message <br>
+                        <div class="input-group">
+                          <input id="bob-output"  type="text" class="form-control" placeholder="The received message will appear here">
+                          <span class="input-group-btn">
+                            <button id="verify-button" class="btn btn-default" type="button">Verify Signature</button>
+                          </span>
+                        </div><!-- /input-group -->
+                  </div>
+                <div class="panel panel-info">...</div>
+                <div class="panel panel-info">...</div>
+            </div> <!-- End Bob-->
+        </div>
+    </div>
+</body>
