@@ -3,12 +3,32 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="crypto.js"></script>
+  <script type="text/javascript" src="http://bitwiseshiftleft.github.io/sjcl/sjcl.js"></script>
 
+    <style>
+        .input-group .form-control {
+            margin-bottom: 10px;
+        }
+    </style>
 </head> 
 <body>
-    <h1 align="center">Skeleton GUI</h1>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+            <ul class="nav navbar-nav">
+            <li><a class="navbar-brand" href="#">Applied Cryptography</a></li>
+            <li ><a href="index.html">Encrypt + Authenticate Message</a></li>
+            <li ><a href="index_temp.html">Digitially Sign Message</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    
+    
+    <h1 align="center">Message Encryption and Authentication Module</h1>
     <div class="container">
-        <div class="btn-group col-sm-12" align="center">
+        <!--<div class="btn-group col-sm-12" align="center">
           <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Desired Level of Security <span class="caret"></span>
           </button>
@@ -18,7 +38,7 @@
             <li><a href="#" data-value="IND-CCA">IND-CCA</a></li>
             <li><a href="#" data-value="all">All Levels</a></li>
           </ul>
-        </div>
+        </div> -->
         
         <div class="row" align="center">
             <div id="alice" class="col-sm-12 col-md-6">
@@ -28,23 +48,84 @@
                     <h3 class="panel-title">Encrypt a Message</h3>
                   </div>
                   <div class="panel-body">
-                    Panel content <br>
                         <div class="input-group">
-                          <input type="text" class="form-control" placeholder="Enter Message...">
-                          <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Encrypt!</button>
+                            <input type="password" id="passphrase" class="form-control" placeholder="Enter Secret Session Key...">
+                            <input type="text" id="plaintext" class="form-control" placeholder="Enter Message...">
+                            <h5 class="form-control">Enter Number of Iterations: </h5>
+                            <input type="numeric" id="iterations" class="form-control" placeholder="Default 1000">
+                            <h5 class="form-control">Select Key Size: </h5>
+                            <div class="form-check">
+                                <input class="form-check-input" name="keysize" type="radio" id="ks128" value="128" checked>
+                                <label class="form-check-label" for="ks128">128</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" name="keysize" type="radio" id="ks192" value="192">
+                                <label class="form-check-label" for="ks192">192</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" name="keysize" type="radio" id="ks256" value="256">
+                                <label class="form-check-label" for="ks256">256</label>
+                            </div>
+                            
+                            <h5 class="form-control">Select Authentication Mode: </h5>
+                            <div class="form-check">
+                                <input class="form-check-input" name="authmode" type="radio" id="ccm" value="ccm" checked>
+                                <label class="form-check-label" for="ccm">CCM</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" name="authmode" type="radio" id="ocb2" value="ocb2">
+                                <label class="form-check-label" for="ocb2">OCB2</label>
+                            </div>
+                                                        
+                            <h5 class="form-control">Select Authentication Strength: </h5>
+                            <div class="form-check">
+                                <input class="form-check-input" name="tag" type="radio" id="tag64" value="64" checked>
+                                <label class="form-check-label" for="tag64">64</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" name="tag" type="radio" id="tag96" value="96">
+                                <label class="form-check-label" for="tag96">96</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" name="tag" type="radio" id="tag128" value="128">
+                                <label class="form-check-label" for="tag128">128</label>
+                            </div>
+                            
+                          <span class="form-check">
+                            <button id="encryption" class="btn btn-default" type="button">Encrypt!</button>
                           </span>
                         </div><!-- /input-group -->
+                      
+                        <h3>Generated Ciphertext: </h3>
+                        <p id="ciphertext"></p>
                   </div>
                 </div> <!-- end top panel -->
                 
-                <div class="panel panel-info">...</div>
             </div> <!-- End Alice-->
 
             <div id="bob" class="col-sm-12 col-md-6">
                 <h2> Bob </h2>
-                <div class="panel panel-info">...</div>
-                <div class="panel panel-info">...</div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Decrypt Alice's Message</h3>
+                    </div>
+                
+                    <h3>Ciphertext Message: </h3>
+                    <p id="messageFromAlice"></p>
+                    
+                    <div class="panel-body">
+                        <div class="input-group">
+                            <input type="password" id="bobPassphrase" class="form-control" placeholder="Enter Secret Passphrase...">
+                            <input type="text" id="bobCiphertext" class="form-control" placeholder="Enter Ciphertext...">
+                        </div><!-- /input-group -->
+                        <span class="form-check">
+                            <button id="decryption" class="btn btn-default" type="button">Decrypt!</button>
+                          </span>
+                      
+                        <h3>Generated Plaintext: </h3>
+                        <p id="decryptedPlaintext"></p>
+                  </div>
+                </div>
             </div> <!-- End Bob-->
         </div>
     </div>
