@@ -67,9 +67,11 @@ $(document).ready(function(){
             document.getElementById("log").innerHTML += "<br><br>Symmetric key is derived from Bob's session token: " + String(bobKey);
            //check bob's and alice's key derived from session token are the same (will not be same with different session tokens)
            if(String(bobKey) == String(key)) {
+                    document.getElementById("log").innerHTML += "<br>Alice and Bob's keys match! This indicates correct session token usage";
+                       
                    //check that bob's ciphertext inputted matches alice's generated ciphertext
                    if(String(alice_cipher_text.ct) != ciphertext) {
-                       document.getElementById("log").innerHTML += "...Alice and Bob's keys match! This indicates correct session token usage";
+                       document.getElementById("log").innerHTML += "<br>Cannot decrypt! Ciphertext has been tampered with.";
                        alert("The ciphertext has been tampered with or Alice is not the sender!");
                    }
                    else {
@@ -89,12 +91,13 @@ $(document).ready(function(){
                        }
 
                        else {
-                           document.getElementById("log").innerHTML += "<br>This does NOT match Alice's original message!";
+                           document.getElementById("log").innerHTML += "<br>Cannot decrypt! Ciphertext has been tampered with.";
                            alert("The ciphertext has been tampered with or Alice is not the sender!");
                        }
                    }
                 }
                else {
+                   document.getElementById("log").innerHTML += "<br>Cannot decrypt...incorrect session key used by Bob";
                    alert("Incorrect Passphrase!");
                }
            
