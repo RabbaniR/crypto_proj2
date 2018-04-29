@@ -28,17 +28,6 @@
     
     <h1 align="center">Message Encryption and Authentication Module</h1>
     <div class="container">
-        <!--<div class="btn-group col-sm-12" align="center">
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Desired Level of Security <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            <li><a href="#" data-value="IND">IND</a></li>
-            <li><a href="#" data-value="IND-CPA">IND-CPA</a></li>
-            <li><a href="#" data-value="IND-CCA">IND-CCA</a></li>
-            <li><a href="#" data-value="all">All Levels</a></li>
-          </ul>
-        </div> -->
         
         <div class="row" align="center">
             <div id="alice" class="col-sm-12 col-md-4">
@@ -117,11 +106,10 @@
                     <div class="panel-heading">Log</div>
                     <div id='log' class="panel-body">
                       <span class='text-success'> Encryption and Authentication Module Ready! </span> <br><br>
-                        <p>To begin, Alice must first agree with a private session toeken with Bob. Then she must fill out all
+                        <p>To begin, Alice must first agree on a private session toeken with Bob. Then she must fill out all
                           fields in her panel and press the "Encrypt!" button. Alice should note that selecting a larger key size, inputting
                           a higher number of iterations (> 1000), and selecting a higher authentication strength will result in higher 
-                          security in her message. CCM mode offers authentication and confidentiality, while OCB2 provides authentication 
-                          and privacy.
+                          security in her encrypted message. CCM mode offers authentication and confidentiality, while OCB2 mode provides authentication and privacy.
                       </p>
                         <p> Then, once a ciphertext is generated, Bob should input the same private session token as Alice, as well as the 
                             generated ciphertext. Upon pressing the "Decrypt!" button, the message should be decrypted back into Alice's 
