@@ -45,46 +45,44 @@
                             
                             <div class="col-sm-12" align="left">
                             <h5 class="text-info"><b>Select Key Size: </b></h5>
-                            <div class="form-check">
-                                <input class="form-check-input" name="keysize" type="radio" id="ks128" value="128" checked>
-                                <label class="form-check-label" for="ks128">128</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" name="keysize" type="radio" id="ks192" value="192">
-                                <label class="form-check-label" for="ks192">192</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" name="keysize" type="radio" id="ks256" value="256">
-                                <label class="form-check-label" for="ks256">256</label>
-                            </div>
+                            
+                                <label class="radio-inline" for="ks128">
+                                <input name="keysize" type="radio" id="ks128" value="128" checked>128</label>
+                            
+                                
+                                <label class="radio-inline" for="ks192">
+                                <input name="keysize" type="radio" id="ks192" value="192">192</label>
+                            
+                                <label class="radio-inline" for="ks256">
+                                <input name="keysize" type="radio" id="ks256" value="256">256</label>
+                            
                             </div>
                             
                             <div class="col-sm-12" align="left">
                             <h5 class="text-info"><b>Select Authentication Mode: </b></h5>
-                            <div class="form-check">
-                                <input class="form-check-input" name="authmode" type="radio" id="ccm" value="ccm" checked>
-                                <label class="form-check-label" for="ccm">CCM</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" name="authmode" type="radio" id="ocb2" value="ocb2">
-                                <label class="form-check-label" for="ocb2">OCB2</label>
-                            </div>
+                            
+                                <label class="radio-inline" for="ccm">
+                                <input name="authmode" type="radio" id="ccm" value="ccm" checked>CCM</label>
+                            
+                                
+                                <label class="radio-inline" for="ocb2">
+                                <input name="authmode" type="radio" id="ocb2" value="ocb2">OCB2</label>
+                           
                             </div>
                               
                             <div class="col-sm-12" align="left">
                             <h5 class="text-info"><b>Select Authentication Strength: </b></h5>
-                            <div class="form-check">
-                                <input class="form-check-input" name="tag" type="radio" id="tag64" value="64" checked>
-                                <label class="form-check-label" for="tag64">64</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" name="tag" type="radio" id="tag96" value="96">
-                                <label class="form-check-label" for="tag96">96</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" name="tag" type="radio" id="tag128" value="128">
-                                <label class="form-check-label" for="tag128">128</label>
-                            </div>
+                                <label class="radio-inline" for="tag64">
+                                <input name="tag" type="radio" id="tag64" value="64" checked>64
+                                </label>
+                            
+                                <label class="radio-inline" for="tag96">
+                                <input name="tag" type="radio" id="tag96" value="96">96</label>
+                            
+                                
+                                <label class="radio-inline" for="tag128">
+                                <input name="tag" type="radio" id="tag128" value="128">128</label>
+                            
                             </div>
                                 
                           <span class="form-check">
@@ -106,7 +104,7 @@
                     <div class="panel-heading">Log</div>
                     <div id='log' class="panel-body">
                       <span class='text-success'> Encryption and Authentication Module Ready! </span> <br><br>
-                        <p>To begin, Alice must first agree on a private session toeken with Bob. Then she must fill out all
+                        <p>To begin, Alice must first agree on a private session token with Bob. Then she must fill out all
                           fields in her panel and press the "Encrypt!" button. Alice should note that selecting a larger key size, inputting
                           a higher number of iterations (> 1000), and selecting a higher authentication strength will result in higher 
                           security in her encrypted message. CCM mode offers authentication and confidentiality, while OCB2 mode provides authentication and privacy.
@@ -134,7 +132,7 @@
                     
                     <div class="panel-body">
                         <div class="input-group">
-                            <input type="password" id="bobPassphrase" class="form-control" placeholder="Enter Secret Passphrase...">
+                            <input type="password" id="bobPassphrase" class="form-control" placeholder="Enter Secret Session Key...">
                             <input type="text" id="bobCiphertext" class="form-control" placeholder="Enter Ciphertext...">
                         </div><!-- /input-group -->
                         <span class="form-check">
