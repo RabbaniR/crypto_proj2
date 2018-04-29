@@ -42,17 +42,18 @@ function gen_key_sign(algname, hashmethod, mlen, saltlen, mess)
          false,
          ["sign", "verify"]);
 
-      gen_promise.then(function(key){
+      gen_promise.then(
+        function(key){
           private_key_object = key.privateKey;
           public_key_object = key.publicKey;
           console.log("public key is: ", public_key_object)
           console.log("private key is: ", private_key_object)
           sign_data(mess, algname, saltlen)
-      });
+      },
 
-      gen_promise.catch = function(e){
+        function(e){
         console.log(e.message);
-      }
+      })
 }
 
 
@@ -73,11 +74,10 @@ function sign_data(mess, algname, salt)
             console.log("resulting signature: ", signature)
             return signature;
             //verify_data();
-        });
-
-    sign_promise.catch = function(e){
+          },
+          function(e){
             console.log(e);
-        }
+        });
 }
 
 
@@ -101,4 +101,20 @@ function verify_data(mess, algname, salt)
             console.log(e.message);
         }
     );
+}
+
+function get_private_key(key_form) {
+  export_promise = crypto.subtle.exportKey(key_form, public_key_object);
+  export_promise.then(
+    function(result) {
+      console.log("result of exporting key: ", result)
+    },
+    function(e){
+      console.log(e.message)
+    })
+}
+
+
+function get_public_key() {
+  return public_key_object;
 }

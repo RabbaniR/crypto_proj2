@@ -3,13 +3,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script data-main="scripts/crypto_main.js" src="scripts/require.js"></script>
-
 </head>
+
 <body>
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">Applied Cryptography</a>
+          <a class="navbar-brand">Applied Cryptography</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
@@ -19,98 +19,138 @@
         </div>
       </div>
     </nav>
-    
-    <h1 align="center">Skeleton GUI</h1>
-    <div class="container" align="right">
-        <div class="btn-group col-sm-12" >
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Signature Algorithm <span class="caret"></span>
-          </button>
-          <ul id="alg-selection" class="dropdown-menu">
-            <li><a href="#" data-value="RSA-PSS">RSA-PSS</a></li>
-            <li><a href="#" data-value="RSASSA-PKCS1-v1_5">RSASSA-PKCS1</a></li>
-          </ul>
 
-        </div>
-
-        <div class="btn-group col-sm-12" >
-        </br>
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Hashing Algorithm <span class="caret"></span>
-          </button>
-          <ul id="hash-selection" class="dropdown-menu">
-            <li><a href="#" data-value="SHA-1">SHA-1</a></li>
-            <li><a href="#" data-value="SHA-256">SHA-256</a></li>
-            <li><a href="#" data-value="SHA-384">SHA-384</a></li>
-            <li><a href="#" data-value="SHA-512">SHA-512</a></li>
-          </ul>
-
-
-        </div>
-
-        <div class="btn-group col-sm-12">
-        </br>
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            Modulus Length <span class="caret"></span>
-          </button>
-          <ul id="modulus-selection" class="dropdown-menu">
-            <li><a href="#" data-value=1024>1024</a></li>
-            <li><a href="#" data-value=2048>2048</a></li>
-            <li><a href="#" data-value=4096>4096</a></li>
-          </ul>
-        </div>
-
-        <div class="btn-group col-sm-12">
-        </br>
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Salt Length <span class="caret"></span>
-          </button>
-          <ul id="salt-selection" class="dropdown-menu">
-            <li><a href="#" data-value=64>64</a></li>
-            <li><a href="#" data-value=128>128</a></li>
-            <li><a href="#" data-value=256>256</a></li>
-          </ul>
-        </div>
-
+    <h1 align="center">Message Signature and Verification</h1>
+    <div class="container-fluid">
         <div class="row" align="center">
-            <div id="alice" class="col-sm-12 col-md-6">
+            <div id="alice" class="col-sm-8 col-md-4">
                 <h2> Alice </h2>
-                <div class="panel panel-info IND-CPA">
+                <div class="panel panel-primary">
                   <div class="panel-heading">
                     <h3 class="panel-title">Sent Messages</h3>
                   </div>
                   <div id="alice-panel" class="panel-body">
-                    Message <br>
-                        <div class="input-group">
-                          <input id="alice-input" type="text"  class="form-control" placeholder="Enter Message...">
-                          <span id="alice-input-button"  class="input-group-btn">
-                            <button id="sign-button" class="btn btn-default" type="button">Hash and Sign</button>
-                          </span>
-                        </div><!-- /input-group -->
+                        <div class="input-group col-sm-12">
+                          <textarea id="alice-input" type="text"  class="form-control" placeholder="Enter Message..." rows='5' required autofocus></textarea>
+                       </div><!-- /input-group -->
+
+                        <div class="col-sm-12" align="left">
+                        </br>
+                          <p class="text-info"><b>Signature Algorithm:</b></p>
+                        <form>
+                          <label class="radio-inline">
+                              <input type="radio" name="alg-selection" value="RSA-PSS" checked>RSA-PSS
+                          </label>
+                          <label class="radio-inline">
+                              <input type="radio" name="alg-selection" value="RSASSA-PKCS1">RSASSA-PKCS1
+                          </label>
+                        </form>
+                      </div>
+
+                      <div class="col-sm-12" align="left">
+                      </br>
+                        <p class="text-info"> <b>Hashing Function:</b></p>
+                      <form>
+                        <label class="radio-inline">
+                            <input type="radio" name="hash-selection" value="SHA-1">SHA-1
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="hash-selection" value="SHA-256" checked>SHA-256
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="hash-selection" value="SHA-384">SHA-384
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="hash-selection" value="SHA-512">SHA-512
+                        </label>
+                      </form>
+                    </div>
+
+
+                    <div class="col-sm-12" align="left">
+                    </br>
+                      <p class="text-info"> <b>Modulus Length:</b></p>
+                    <form>
+                      <label class="radio-inline">
+                          <input type="radio" name="mod-selection" value="1024">1024
+                      </label>
+                      <label class="radio-inline">
+                          <input type="radio" name="mod-selection" value="2048" checked>2048
+                      </label>
+                      <label class="radio-inline">
+                          <input type="radio" name="mod-selection" value="4096">4096
+                      </label>
+                    </form>
                   </div>
-                </div> <!-- end top panel -->
+
+
+                  <div class="col-sm-12" align="left">
+                  </br>
+                    <p class="text-info"> <b>Salt Length:</b></p>
+                  <form>
+                    <label class="radio-inline">
+                        <input type="radio" name="salt-selection" value="64" checked> 64
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="salt-selection" value="128">128
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="salt-selection" value="256">256
+                    </label>
+                  </form>
+                </div>
+              </div>
+
+
+                <span id="alice-input-button"  class="input-group-btn">
+                  <button id="sign-button" class="btn btn-primary btn-lg" type="button">Hash and Sign</button>
+                </span>
+              </br>
+
+            </div> <!-- end top panel -->
 
                 <div class="panel panel-info">...</div>
             </div> <!-- End Alice-->
 
-            <div id="bob" class="col-sm-12 col-md-6">
+
+
+              <div class="col-sm-8 col-md-4" align="center">
+              </br> </br> </br>
+                  <div class="panel panel-danger">
+                    <div class="panel-heading">log</div>
+                    <div class="panel-body">
+                      <span id='log' class='text-success'> Signature and Verification Module Ready.
+                      </span>
+                    </div>
+                  </div>
+              </div>
+
+
+
+
+            <div id="bob" class="col-sm-8 col-md-4">
                 <h2> Bob </h2>
-                <div class="panel panel-info">
+                <div class="panel panel-primary">
                   <div class="panel-heading">
                     <h3 class="panel-title">Received Messages</h3>
                   </div>
                   <div id="bob-panel" class="panel-body">
-                    Received Message <br>
-                        <div class="input-group">
-                          <input id="bob-output"  type="text" class="form-control" placeholder="The received message will appear here">
-                          <span class="input-group-btn">
-                            <button id="verify-button" class="btn btn-default" type="button">Verify Signature</button>
-                          </span>
-                        </div><!-- /input-group -->
+                  </br> </br> </br>
+                        <div class="input-group col-sm-12">
+                        <textarea placeholder="The received message will appear here" id="bob-output" type="text" class="form-control" rows="5"></textarea>
+                        </div>
+                          </br> </br>  </br> </br>
+                        <span class="input-group-btn">
+                          <button id="verify-button" class="btn btn-primary btn-lg" type="button">Verify Signature</button>
+                        </span>
                   </div>
-                <div class="panel panel-info">...</div>
-                <div class="panel panel-info">...</div>
             </div> <!-- End Bob-->
+          </div>
         </div>
-    </div>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          </div>
+        </div>
 </body>
