@@ -1,5 +1,6 @@
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="proj_style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script data-main="scripts/crypto_main.js" src="scripts/require.js"></script>
@@ -20,8 +21,8 @@
       </div>
     </nav>
 
-    <h1 align="center">Message Signature and Verification</h1>
-    <div class="container-fluid">
+    <h1 align="center">Message Signature and Verification Module</h1>
+    <div class="container">
         <div class="row" align="center">
             <div id="alice" class="col-sm-8 col-md-4">
                 <h2> Alice </h2>
@@ -34,7 +35,7 @@
                           <textarea id="alice-input" type="text"  class="form-control" placeholder="Enter Message..." rows='5' required autofocus></textarea>
                        </div><!-- /input-group -->
 
-                        <div class="col-sm-12" align="left">
+                        <div class="col-sm-18" align="left">
                         </br>
                           <p class="text-info"><b>Signature Algorithm:</b></p>
                         <form>
@@ -47,8 +48,7 @@
                         </form>
                       </div>
 
-                      <div class="col-sm-12" align="left">
-                      </br>
+                      <div class="col-sm-24" align="left">
                         <p class="text-info"> <b>Hashing Function:</b></p>
                       <form>
                         <label class="radio-inline">
@@ -61,14 +61,13 @@
                             <input type="radio" name="hash-selection" value="SHA-384">SHA-384
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="hash-selection" value="SHA-512">SHA-512
+                            <input type="radio" name="hash-selection" value="SHA-512">SHA512
                         </label>
                       </form>
                     </div>
 
 
-                    <div class="col-sm-12" align="left">
-                    </br>
+                    <div class="col-sm-18" align="left">
                       <p class="text-info"> <b>Modulus Length:</b></p>
                     <form>
                       <label class="radio-inline">
@@ -84,15 +83,17 @@
                   </div>
 
 
-                  <div class="col-sm-12" align="left">
-                  </br>
-                    <p class="text-info"> <b>Salt Length:</b></p>
+                  <div class="col-sm-18" align="left">
+                    <p class="text-info"> <b>Salt Length (only applicable to RSA-PSS):</b></p>
                   <form>
                     <label class="radio-inline">
                         <input type="radio" name="salt-selection" value="64" checked> 64
                     </label>
                     <label class="radio-inline">
                         <input type="radio" name="salt-selection" value="128">128
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="salt-selection" value="192">192
                     </label>
                     <label class="radio-inline">
                         <input type="radio" name="salt-selection" value="256">256
@@ -102,9 +103,21 @@
               </div>
 
 
-                <span id="alice-input-button"  class="input-group-btn">
+
+
+              <span id="alice-input-button"  class="input-group-btn">
                   <button id="sign-button" class="btn btn-primary btn-lg" type="button">Hash and Sign</button>
                 </span>
+              </br>
+              <span id="publickey-button"  class="input-group-btn">
+                <button class="btn btn-primary btn-sm" type="button">Show Public Key</button>
+              </span>
+              <span id="show-signature-button"  class="input-group-btn">
+                <button class="btn btn-primary btn-sm" type="button">Show Signature</button>
+              </span>
+              <span  class="input-group-btn">
+                <button id="privatekey-button" class="btn btn-primary btn-sm" type="button">Show Private Key</button>
+              </span>
               </br>
 
             </div> <!-- end top panel -->
@@ -117,16 +130,13 @@
               <div class="col-sm-8 col-md-4" align="center">
               </br> </br> </br>
                   <div class="panel panel-danger">
-                    <div class="panel-heading">log</div>
+                    <div class="panel-heading">Log</div>
                     <div class="panel-body">
                       <span id='log' class='text-success'> Signature and Verification Module Ready.
                       </span>
                     </div>
                   </div>
               </div>
-
-
-
 
             <div id="bob" class="col-sm-8 col-md-4">
                 <h2> Bob </h2>
@@ -135,10 +145,20 @@
                     <h3 class="panel-title">Received Messages</h3>
                   </div>
                   <div id="bob-panel" class="panel-body">
-                  </br> </br> </br>
+                  </br> </br>
                         <div class="input-group col-sm-12">
                         <textarea placeholder="The received message will appear here" id="bob-output" type="text" class="form-control" rows="5"></textarea>
                         </div>
+                          </br>
+
+                          <div class="input-group col-sm-12">
+                          <textarea placeholder="Enter the public key here" id="bob-publickey" type="text" class="form-control" rows="3"></textarea>
+                          </div>
+                          </br>
+
+                          <div class="input-group col-sm-12">
+                          <textarea placeholder="Enter the signature here" id="bob-signature" type="text" class="form-control" rows="3"></textarea>
+                          </div>
                           </br> </br>  </br> </br>
                         <span class="input-group-btn">
                           <button id="verify-button" class="btn btn-primary btn-lg" type="button">Verify Signature</button>

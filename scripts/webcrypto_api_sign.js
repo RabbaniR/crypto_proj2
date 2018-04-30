@@ -17,7 +17,7 @@ var last_verification = null;
 
 
 function test_alert() {
-  alert("Cryptography API!!");
+    alert("Cryptography API!!");
 }
 
 function stringToArrayBufferView(str)
@@ -39,7 +39,7 @@ function gen_key_sign(algname, hashmethod, mlen, saltlen, mess)
          publicExponent: new Uint8Array([1, 0, 1]),
          hash: {name: hashmethod}},
 
-         false,
+         true,
          ["sign", "verify"]);
 
       gen_promise.then(
@@ -69,10 +69,15 @@ function sign_data(mess, algname, salt)
 
     sign_promise.then(
         function(result_signature){
-            signature = result_signature; //signature generated
-            console.log("Message signed: ", mess)
-            console.log("resulting signature: ", signature)
-            return signature;
+            signature = result_signature
+            console.log("Message signed!!!!!!!!!!!!!!!!");
+            console.log("Resulting signature: ", signature)
+            console.log("Resulting signature in hex: ", buf2hex(signature))
+            for (var e in signature) {
+              console.log(e);
+            }
+            document.getElementById("log").innerHTML += "</br></br>Message signed."
+            document.getElementById("log").innerHTML += "</br></br>resulting signature: " +  buf2hex(signature);
             //verify_data();
           },
           function(e){
@@ -81,15 +86,15 @@ function sign_data(mess, algname, salt)
 }
 
 
-function verify_data(mess, algname, salt)
+function verify_data(mess, read_signature, read_publickey, algname, salt)
 {
     verify_promise = crypto.subtle.verify(
       {
         name: algname,
         saltLength: salt
       },
-      public_key_object,
-      signature,
+      read_publickey,
+      read_signature,
       stringToArrayBufferView(mess));
 
     verify_promise.then(
@@ -103,11 +108,12 @@ function verify_data(mess, algname, salt)
     );
 }
 
-function get_private_key(key_form) {
+function show_public_key(elemID, key_form) {
   export_promise = crypto.subtle.exportKey(key_form, public_key_object);
-  export_promise.then(
+  return export_promise.then(
     function(result) {
-      console.log("result of exporting key: ", result)
+      //console.log("result of exporting key: ", result)
+      document.getElementById(elemID).innerHTML += "</br></br>Public key in Json Web Key (JWK) Format: </br> " + JSON.stringify(result);
     },
     function(e){
       console.log(e.message)
@@ -115,6 +121,53 @@ function get_private_key(key_form) {
 }
 
 
-function get_public_key() {
-  return public_key_object;
+function show_public_key_alert(key_form) {
+  export_promise = crypto.subtle.exportKey(key_form, public_key_object);
+  return export_promise.then(
+    function(result) {
+      //console.log("result of exporting key: ", result)
+      alert("Public key in JSON WEB KEY format (JWK): \n\n " + JSON.stringify(result));
+    },
+    function(e){
+      console.log(e.message)
+    })
+}
+
+function show_private_key() {
+  export_promise = crypto.subtle.exportKey(key_form, private_key_object);
+  return export_promise.then(
+    function(result) {
+      //console.log("result of exporting key: ", result)
+      alert("Private key in JSON WEB KEY format (JWK): \n\n " + JSON.stringify(result));
+    },
+    function(e){
+      console.log(e.message)
+    })
+}
+
+function show_signature() {
+    alert("The resulting signature:\n\n" +  buf2hex(signature))
+}
+
+
+
+//from GitHub
+//https://gist.github.com/Glamdring/04eacabae3188dd5978241183b4d4bc5
+function buf2hex(buffer) { // buffer is an ArrayBuffer
+  return Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('');
+}
+
+
+//from GitHub
+//https://gist.github.com/Glamdring/04eacabae3188dd5978241183b4d4bc5
+function hex2buf(hex) {
+	var buffer = new ArrayBuffer(hex.length / 2);
+	var array = new Uint8Array(buffer);
+	var k = 0;
+	for (var i = 0; i < hex.length; i +=2 ) {
+		array[k] = parseInt(hex[i] + hex[i+1], 16);
+		k++;
+	}
+
+	return buffer;
 }

@@ -1,4 +1,5 @@
 <head>
+  <link rel="stylesheet" type="text/css" href="proj_style.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -10,7 +11,7 @@
             margin-bottom: 10px;
         }
     </style>
-</head> 
+</head>
 <body>
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
@@ -23,12 +24,12 @@
         </div>
       </div>
     </nav>
-    
-    
-    
+
+
+
     <h1 align="center">Message Encryption and Authentication Module</h1>
     <div class="container">
-        
+
         <div class="row" align="center">
             <div id="alice" class="col-sm-12 col-md-4">
                 <h2> Alice </h2>
@@ -42,62 +43,62 @@
                             <textarea type="text" id="plaintext" class="form-control" placeholder="Enter Message..." rows="5"></textarea>
                             <h5 class="text-info" align="left"><b>Enter Number of Iterations: </b></h5>
                             <input type="numeric" id="iterations" class="form-control" placeholder="Default 1000">
-                            
+
                             <div class="col-sm-12" align="left">
                             <h5 class="text-info"><b>Select Key Size: </b></h5>
-                            
+
                                 <label class="radio-inline" for="ks128">
                                 <input name="keysize" type="radio" id="ks128" value="128" checked>128</label>
-                            
-                                
+
+
                                 <label class="radio-inline" for="ks192">
                                 <input name="keysize" type="radio" id="ks192" value="192">192</label>
-                            
+
                                 <label class="radio-inline" for="ks256">
                                 <input name="keysize" type="radio" id="ks256" value="256">256</label>
-                            
+
                             </div>
-                            
+
                             <div class="col-sm-12" align="left">
                             <h5 class="text-info"><b>Select Authentication Mode: </b></h5>
-                            
+
                                 <label class="radio-inline" for="ccm">
                                 <input name="authmode" type="radio" id="ccm" value="ccm" checked>CCM</label>
-                            
-                                
+
+
                                 <label class="radio-inline" for="ocb2">
                                 <input name="authmode" type="radio" id="ocb2" value="ocb2">OCB2</label>
-                           
+
                             </div>
-                              
+
                             <div class="col-sm-12" align="left">
                             <h5 class="text-info"><b>Select Authentication Strength: </b></h5>
                                 <label class="radio-inline" for="tag64">
                                 <input name="tag" type="radio" id="tag64" value="64" checked>64
                                 </label>
-                            
+
                                 <label class="radio-inline" for="tag96">
                                 <input name="tag" type="radio" id="tag96" value="96">96</label>
-                            
-                                
+
+
                                 <label class="radio-inline" for="tag128">
                                 <input name="tag" type="radio" id="tag128" value="128">128</label>
-                            
+
                             </div>
-                                
+
                           <span class="form-check">
                             <button id="encryption" class="btn btn-primary" type="button">Encrypt!</button>
                           </span>
                         </div><!-- /input-group -->
-                      
+
                         <h3>Generated Ciphertext: </h3>
                         <p id="ciphertext"></p>
                   </div>
                 </div> <!-- end top panel -->
-                
+
             </div> <!-- End Alice-->
-            
-            
+
+
             <div class="col-sm-12 col-md-4" align="center">
               <br> <br> <br>
                   <div class="panel panel-danger">
@@ -106,19 +107,19 @@
                       <span class='text-success'> Encryption and Authentication Module Ready! </span> <br><br>
                         <p>To begin, Alice must first agree on a private session token with Bob. Then she must fill out all
                           fields in her panel and press the "Encrypt!" button. Alice should note that selecting a larger key size, inputting
-                          a higher number of iterations (> 1000), and selecting a higher authentication strength will result in higher 
+                          a higher number of iterations (> 1000), and selecting a higher authentication strength will result in higher
                           security in her encrypted message. CCM mode offers authentication and confidentiality, while OCB2 mode provides authentication and privacy.
                       </p>
-                        <p> Then, once a ciphertext is generated, Bob should input the same private session token as Alice, as well as the 
-                            generated ciphertext. Upon pressing the "Decrypt!" button, the message should be decrypted back into Alice's 
+                        <p> Then, once a ciphertext is generated, Bob should input the same private session token as Alice, as well as the
+                            generated ciphertext. Upon pressing the "Decrypt!" button, the message should be decrypted back into Alice's
                             original message, provided that the session tokens match and the ciphertext is the true ciphertext generated (it has
                             not been tampered with).
                         </p>
                     </div>
                   </div>
               </div>
-            
-            
+
+
 
             <div id="bob" class="col-sm-12 col-md-4">
                 <h2> Bob </h2>
@@ -126,10 +127,10 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">Decrypt Alice's Message</h3>
                     </div>
-                
+
                     <h3>Ciphertext Message: </h3>
                     <p id="messageFromAlice"></p>
-                    
+
                     <div class="panel-body">
                         <div class="input-group">
                             <input type="password" id="bobPassphrase" class="form-control" placeholder="Enter Secret Session Key...">
@@ -138,7 +139,7 @@
                         <span class="form-check">
                             <button id="decryption" class="btn btn-primary" type="button">Decrypt!</button>
                           </span>
-                      
+
                         <h3>Generated Plaintext: </h3>
                         <p id="decryptedPlaintext"></p>
                   </div>
@@ -147,4 +148,3 @@
         </div>
     </div>
 </body>
-

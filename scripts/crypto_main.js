@@ -58,26 +58,40 @@ $(document).ready(function(){
         saltlen =  $("input:radio[name='salt-selection']:checked").val();
         gen_key_sign(algname, hashname, modlen, saltlen, mess)
         setTimeout(function(){
+              show_public_key('log', 'jwk');
               document.getElementById("bob-output").value = mess
-              document.getElementById("log").innerHTML += "</br>Private and Public keys generated. ";
-              document.getElementById("log").innerHTML += "</br>Public key: " + get_public_key('jwk');
-
-        }, 3000);
-        })
+              document.getElementById('log').innerHTML += "</br>Private and Public keys generated."
+        }, 3000)
+      })
 
     $("#verify-button").click(function() {
         mess_to_verify = document.getElementById("bob-output").value;
+        var read_signature_hex = document.getElementById('bob-signature').value;
+        var read_signature_buffer  = hex2buf(read_signature_hex);
+        var read_public_key = document.getElementById('bob-publickey').value;
+        //var read_public_key = JSON.parse(read_public_key_raw);
         console.log("Will now verify the authenticity of the following message: ", mess_to_verify)
-        verify_data(mess_to_verify, algname, saltlen)
+        verify_data(mess_to_verify, read_signature_buffer, read_public_key, algname, saltlen)
         setTimeout(function(){
           console.log("Value of verification result is: ", last_verification);
           if(last_verification) {
             alert("Message is authentic!")
           }
           else {
-            alert("Message is not authetic!")
+            alert("Message is NOT authetic!")
           }
         }, 2000);
       })
 
+    $("#publickey-button").click(function() {
+      show_public_key_alert('jwk');
+    })
+
+    $("#privatekey-button").click(function() {
+      show_private_key_alert('jwk');
+    })
+
+    $("#show-signature-button").click(function() {
+      show_signature();
+    })
 });
