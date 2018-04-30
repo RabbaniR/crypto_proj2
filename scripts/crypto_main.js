@@ -61,7 +61,7 @@ $(document).ready(function(){
               show_public_key('log', 'jwk');
               document.getElementById("bob-output").value = mess
               document.getElementById('log').innerHTML += "</br>Private and Public keys generated."
-        }, 2000)
+        }, 4000)
       })
 
     $("#verify-button").click(function() {
@@ -89,7 +89,7 @@ $(document).ready(function(){
     })
 
     $("#privatekey-button").click(function() {
-      show_private_key_alert('jwk');
+      show_private_key_alert();
     })
 
     $("#show-signature-button").click(function() {

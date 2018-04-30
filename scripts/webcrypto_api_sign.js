@@ -157,8 +157,8 @@ function show_public_key_alert(key_form) {
     })
 }
 
-function show_private_key() {
-  export_promise = crypto.subtle.exportKey(key_form, private_key_object);
+function show_private_key_alert() {
+  export_promise = crypto.subtle.exportKey('jwk', private_key_object);
   return export_promise.then(
     function(result) {
       //console.log("result of exporting key: ", result)
