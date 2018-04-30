@@ -61,7 +61,7 @@ $(document).ready(function(){
               show_public_key('log', 'jwk');
               document.getElementById("bob-output").value = mess
               document.getElementById('log').innerHTML += "</br>Private and Public keys generated."
-        }, 3000)
+        }, 2000)
       })
 
     $("#verify-button").click(function() {
@@ -69,11 +69,12 @@ $(document).ready(function(){
         var read_signature_hex = document.getElementById('bob-signature').value;
         var read_signature_buffer  = hex2buf(read_signature_hex);
         var read_public_key = document.getElementById('bob-publickey').value;
-        //var read_public_key = JSON.parse(read_public_key_raw);
         console.log("Will now verify the authenticity of the following message: ", mess_to_verify)
-        verify_data(mess_to_verify, read_signature_buffer, read_public_key, algname, saltlen)
+        console.log("result of JSON parse: ", JSON.parse(read_public_key));
+        console.log("Algname: ", algname, "Hashname: ", hashname)
+        import_key_verify(read_public_key, mess_to_verify, read_signature_buffer, algname, hashname,  saltlen)
         setTimeout(function(){
-          console.log("Value of verification result is: ", last_verification);
+          document.getElementById('log').value += "</br></br>Authetication Attempt finished. Result of authetication: ", last_verification;
           if(last_verification) {
             alert("Message is authentic!")
           }

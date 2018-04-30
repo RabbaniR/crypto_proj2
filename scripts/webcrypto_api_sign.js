@@ -12,6 +12,7 @@ var sign_promise = null;
 var signature = null;
 var verify_promise = null;
 var last_verification = null;
+var read_public_key =null;
 
 //alert("Cryptography API Supported");
 
@@ -77,7 +78,7 @@ function sign_data(mess, algname, salt)
               console.log(e);
             }
             document.getElementById("log").innerHTML += "</br></br>Message signed."
-            document.getElementById("log").innerHTML += "</br></br>resulting signature: " +  buf2hex(signature);
+            document.getElementById("log").innerHTML += "</br></br>resulting signature: </br></br> " +  buf2hex(signature) + "</br></br>";
             //verify_data();
           },
           function(e){
@@ -86,14 +87,14 @@ function sign_data(mess, algname, salt)
 }
 
 
-function verify_data(mess, read_signature, read_publickey, algname, salt)
+function verify_data(mess, read_signature, algname, hashname, salt)
 {
     verify_promise = crypto.subtle.verify(
       {
         name: algname,
         saltLength: salt
       },
-      read_publickey,
+      read_public_key,
       read_signature,
       stringToArrayBufferView(mess));
 
@@ -104,16 +105,39 @@ function verify_data(mess, read_signature, read_publickey, algname, salt)
         },
         function(e){
             console.log(e.message);
-        }
-    );
+        })
 }
+
+
+function import_key_verify(key_jwk_format, mess, read_signature, algname, hashname, salt) {
+  key_json = JSON.parse(key_jwk_format);
+  import_promise = window.crypto.subtle.importKey('jwk',
+            key_json,
+            {name: algname, hash: {name: hashname}},
+            true,
+            ['verify']);
+
+  import_promise.then(
+    function(result) {
+      console.log('Key imported successfully');
+      console.log('public key: ', result);
+      read_public_key = result;
+      verify_data(mess, read_signature, algname, hashname, salt)
+
+    },
+    function(e){
+      console.log(e);
+    }
+  )
+}
+
 
 function show_public_key(elemID, key_form) {
   export_promise = crypto.subtle.exportKey(key_form, public_key_object);
   return export_promise.then(
     function(result) {
       //console.log("result of exporting key: ", result)
-      document.getElementById(elemID).innerHTML += "</br></br>Public key in Json Web Key (JWK) Format: </br> " + JSON.stringify(result);
+      document.getElementById(elemID).innerHTML += "</br></br>Public key in Json Web Key (JWK) Format: </br></br> " + JSON.stringify(result) + "</br></br>";
     },
     function(e){
       console.log(e.message)
